@@ -15,7 +15,6 @@ wheels/
 .vscode/
 .idea/
 .DS_Store
-Thumbs.db
 
 # Local backups
 *.bak
