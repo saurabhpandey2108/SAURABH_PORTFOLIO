@@ -10,3 +10,12 @@ wheels/
 .venv
 .claude/
 .python-version
+
+# Editor / OS junk
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# Local backups
+*.bak
