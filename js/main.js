@@ -84,7 +84,7 @@ window.addEventListener("sections-loaded", () => {
   if (!canvas || !window.THREE) return;
 
   const scene = new THREE.Scene();
-  scene.fog = new THREE.FogExp2(0x06070b, 0.045);
+  scene.fog = new THREE.FogExp2(0x06070b, 0.020);
 
   const camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 100);
   camera.position.z = 18;
@@ -129,7 +129,7 @@ window.addEventListener("sections-loaded", () => {
   const pGeo = new THREE.BufferGeometry();
   pGeo.setAttribute("position", new THREE.BufferAttribute(positions, 3));
   const pMat = new THREE.PointsMaterial({
-    size: 0.22,
+    size: 0.34,
     map: makeDotTexture(),
     transparent: true,
     blending: THREE.AdditiveBlending,
@@ -149,7 +149,7 @@ window.addEventListener("sections-loaded", () => {
   const lineMat = new THREE.LineBasicMaterial({
     vertexColors: true,
     transparent: true,
-    opacity: 0.7,
+    opacity: 0.95,
     blending: THREE.AdditiveBlending,
     depthWrite: false
   });
@@ -162,13 +162,13 @@ window.addEventListener("sections-loaded", () => {
     color: 0x4fd1c5,
     wireframe: true,
     transparent: true,
-    opacity: 0.06
+    opacity: 0.18
   });
   const core = new THREE.Mesh(coreGeo, coreMat);
   scene.add(core);
 
   const ringGeo = new THREE.TorusGeometry(4.5, 0.012, 8, 96);
-  const ringMat = new THREE.MeshBasicMaterial({ color: 0xfbbf24, transparent: true, opacity: 0.18 });
+  const ringMat = new THREE.MeshBasicMaterial({ color: 0xfbbf24, transparent: true, opacity: 0.32 });
   const ring = new THREE.Mesh(ringGeo, ringMat);
   ring.rotation.x = Math.PI / 2.4;
   scene.add(ring);
@@ -243,12 +243,12 @@ window.addEventListener("sections-loaded", () => {
             linePositions[li + 4] = arr[jx + 1];
             linePositions[li + 5] = arr[jx + 2];
             // teal fading toward darker
-            lineColors[li]     = 0.31 * alpha;
-            lineColors[li + 1] = 0.82 * alpha;
-            lineColors[li + 2] = 0.77 * alpha;
-            lineColors[li + 3] = 0.31 * alpha;
-            lineColors[li + 4] = 0.82 * alpha;
-            lineColors[li + 5] = 0.77 * alpha;
+            lineColors[li]     = 0.50 * alpha;
+            lineColors[li + 1] = 1.00 * alpha;
+            lineColors[li + 2] = 0.95 * alpha;
+            lineColors[li + 3] = 0.50 * alpha;
+            lineColors[li + 4] = 1.00 * alpha;
+            lineColors[li + 5] = 0.95 * alpha;
             lineIdx += 2;
           }
         }
