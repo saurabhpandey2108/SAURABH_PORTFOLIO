@@ -9,111 +9,60 @@
     </div>
 
     <!-- FEATURED -->
-    <article class="featured reveal">
+    <article class="featured featured--full reveal">
       <div class="featured__inner">
-
-        <!-- visual: equivalent circuit model -->
-        <div class="featured__visual">
-          <div class="ecm-vis">
-            <svg viewBox="0 0 460 360" xmlns="http://www.w3.org/2000/svg">
-              <defs>
-                <linearGradient id="grad" x1="0" y1="0" x2="1" y2="0">
-                  <stop offset="0%" stop-color="#4fd1c5" stop-opacity="0"/>
-                  <stop offset="50%" stop-color="#4fd1c5"/>
-                  <stop offset="100%" stop-color="#4fd1c5" stop-opacity="0"/>
-                </linearGradient>
-                <filter id="glow"><feGaussianBlur stdDeviation="2" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
-              </defs>
-
-              <!-- circuit traces -->
-              <g stroke="#4fd1c5" stroke-width="1.4" fill="none" filter="url(#glow)">
-                <!-- main loop -->
-                <path d="M40,180 L100,180" />
-                <!-- battery symbol -->
-                <line x1="100" y1="160" x2="100" y2="200" stroke-width="3"/>
-                <line x1="108" y1="170" x2="108" y2="190" stroke-width="3"/>
-                <text x="92" y="218" fill="#4fd1c5">OCV</text>
-
-                <path d="M108,180 L150,180" />
-
-                <!-- R0 resistor -->
-                <path d="M150,180 l5,-8 l10,16 l10,-16 l10,16 l10,-16 l5,8" />
-                <text x="160" y="160" fill="#9a9aa6">R0</text>
-
-                <path d="M200,180 L240,180"/>
-
-                <!-- RC pair 1 -->
-                <path d="M240,180 L240,150 L300,150 L300,180" />
-                <path d="M240,180 L240,210 L300,210 L300,180" />
-                <!-- R1 -->
-                <path d="M254,150 l5,-8 l10,16 l10,-16 l10,16 l5,-8" />
-                <text x="262" y="138" fill="#9a9aa6">R1</text>
-                <!-- C1 -->
-                <line x1="266" y1="205" x2="266" y2="215" stroke-width="2.5"/>
-                <line x1="274" y1="205" x2="274" y2="215" stroke-width="2.5"/>
-                <text x="262" y="232" fill="#9a9aa6">C1</text>
-
-                <path d="M300,180 L340,180"/>
-
-                <!-- RC pair 2 -->
-                <path d="M340,180 L340,150 L400,150 L400,180" />
-                <path d="M340,180 L340,210 L400,210 L400,180" />
-                <path d="M354,150 l5,-8 l10,16 l10,-16 l10,16 l5,-8" />
-                <text x="362" y="138" fill="#9a9aa6">R2</text>
-                <line x1="366" y1="205" x2="366" y2="215" stroke-width="2.5"/>
-                <line x1="374" y1="205" x2="374" y2="215" stroke-width="2.5"/>
-                <text x="362" y="232" fill="#9a9aa6">C2</text>
-
-                <path d="M400,180 L420,180 L420,260 L40,260 L40,180"/>
-                <text x="408" y="172" fill="#fbbf24">+ V</text>
-
-                <!-- terminal nodes -->
-                <circle cx="40" cy="180" r="3" fill="#fbbf24"/>
-                <circle cx="420" cy="180" r="3" fill="#fbbf24"/>
-              </g>
-
-              <!-- annotations -->
-              <text x="20" y="40" fill="#9a9aa6" style="font-size:10px;letter-spacing:.15em">EQUIVALENT CIRCUIT MODEL</text>
-              <text x="20" y="58" fill="#4fd1c5" style="font-size:13px;font-weight:500">2-RC Thévenin Topology</text>
-
-              <!-- moving signal -->
-              <line x1="0" y1="320" x2="460" y2="320" stroke="url(#grad)" stroke-width="2">
-                <animate attributeName="x1" values="-460;460" dur="3s" repeatCount="indefinite"/>
-                <animate attributeName="x2" values="0;920" dur="3s" repeatCount="indefinite"/>
-              </line>
-              <text x="20" y="310" fill="#5a5a66" style="font-size:10px;letter-spacing:.15em">→ TIME-SERIES CURRENT INPUT</text>
-            </svg>
-          </div>
-        </div>
-
-        <!-- body -->
         <div class="featured__body">
-          <div class="featured__pill">Featured · Patent-Filed</div>
-          <h3 class="featured__title">Battery Passport <em>&amp; on-device fault intelligence</em></h3>
+          <div class="featured__pill">Featured · ISC Fault Detector · NCM811</div>
+          <h3 class="featured__title">Battery Fault Detection<em> &middot; three-scalogram residual analysis</em></h3>
           <p class="featured__desc">
-            A patent-filed system that fuses <strong style="color:var(--text)">deep learning, swarm optimization and electrochemistry</strong> to estimate the state of an EV battery — its charge, health and degradation — directly on the BMS, in real time, without ever needing labeled data. Built at Suavy Technologies for use in battery swapping stations.
+            End-to-end internal short-circuit (ISC) detector for the Tsinghua NCM811 dataset, built on one hard architectural rule: <strong style="color:var(--text)">voltage never enters the model's input</strong>. A physics-informed network is trained only on healthy cells, then frozen — on a faulty cell it keeps predicting the healthy voltage trajectory, and the residual carries the ISC signature into a wavelet-CNN classifier.
           </p>
 
-          <div class="featured__params">
-            <div class="lbl">Estimated parameters · Equivalent Circuit Model</div>
-            <div class="params">
-              <span>R0</span><span>R1</span><span>R2</span><span>C1</span><span>C2</span><span>η</span><span>M0</span><span>M</span>
+          <!-- pipeline visualization -->
+          <div class="pipeline">
+            <div class="pipe-stage">
+              <div class="pipe-stage__num">01</div>
+              <div class="pipe-stage__name">PINN</div>
+              <div class="pipe-stage__desc">Pure-NumPy MLP — 35 leakage-free current-only features map to 8 ECM parameters. Trained on healthy cells only, then frozen.</div>
+              <div class="pipe-stage__io"><span>I, dI/dt, SOC<sub>cb</sub></span><span class="arrow">→</span><span>V<sub>pred</sub>(t)</span></div>
+            </div>
+            <div class="pipe-arrow">→</div>
+            <div class="pipe-stage">
+              <div class="pipe-stage__num">02</div>
+              <div class="pipe-stage__name">CWT</div>
+              <div class="pipe-stage__desc">Morlet wavelet transform on three signals per 1280-sample window: V<sub>meas</sub>, V<sub>pred</sub>, and the residual e(t).</div>
+              <div class="pipe-stage__io"><span>V<sub>meas</sub>, V<sub>pred</sub>, e(t)</span><span class="arrow">→</span><span>(224, 224, 3)</span></div>
+            </div>
+            <div class="pipe-arrow">→</div>
+            <div class="pipe-stage">
+              <div class="pipe-stage__num">03</div>
+              <div class="pipe-stage__name">CNN</div>
+              <div class="pipe-stage__desc">Binary classifier on the three-scalogram stack. Stratified 70 / 15 / 15 file-level split — windows from one file never straddle splits.</div>
+              <div class="pipe-stage__io"><span>3-scalogram stack</span><span class="arrow">→</span><span>BD vs CS</span></div>
             </div>
           </div>
 
-          <ul class="featured__highlights">
-            <li><strong>Hybrid pipeline.</strong> ANN delivers fast initial parameter prediction; PSO refines them against measured terminal-voltage residuals — combining speed with precision.</li>
-            <li><strong>Physics-informed core.</strong> The model isn't a black box. It is anchored to a 2-RC Thévenin equivalent circuit, ensuring estimates remain physically plausible across temperature and aging.</li>
-            <li><strong>No labels needed.</strong> Self-supervised pipeline learns directly from voltage / current / temperature streams — solving the dataset bottleneck that blocks most BMS ML work.</li>
-            <li><strong>Lifecycle &amp; warranty.</strong> Outputs are cryptographically sealed in a tamper-resistant Battery Passport — enabling fleet-level safety, second-life tracking and warranty enforcement.</li>
-            <li><strong>Real-time fault signal.</strong> Drift in estimated parameters acts as an early-warning signal for cell degradation, internal short, and capacity fade.</li>
-          </ul>
-
-          <div class="featured__stack">
-            <span>Python</span><span>TensorFlow</span><span>NumPy</span><span>SciPy / PSO</span><span>MATLAB</span><span>ECM</span>
+          <!-- stats -->
+          <div class="fv2-stats">
+            <div class="fv2-stat"><div class="num">14</div><div class="lbl">BD/CS pairs</div></div>
+            <div class="fv2-stat"><div class="num">35</div><div class="lbl">Leakage-free features</div></div>
+            <div class="fv2-stat"><div class="num">8</div><div class="lbl">ECM parameters</div></div>
+            <div class="fv2-stat"><div class="num">96</div><div class="lbl">Wavelet scales</div></div>
           </div>
 
-          <a href="https://github.com/saurabhpandey2108" target="_blank" rel="noreferrer" class="btn btn--ghost">View Related Work <span class="arrow">→</span></a>
+          <ul class="featured__highlights">
+            <li><strong>Leakage-free by construction.</strong> No voltage of any kind — V<sub>meas</sub>, OCV(SOC), dV/dt — ever enters the PINN feature vector. The ISC current bypasses the ammeter, so the residual is the only place the fault can survive.</li>
+            <li><strong>Healthy-only training, frozen at inference.</strong> The PINN is trained on BD files only. On a CS file it still predicts the healthy voltage trajectory; <code>V_meas</code> carries the ISC signature, and the residual concentrates the disagreement.</li>
+            <li><strong>Per-channel detrend is the diagnostic.</strong> Cubic detrend is right for V<sub>meas</sub> / V<sub>pred</sub> but destroys the slow ISC drift in the residual — collapsing classification to BCE&nbsp;0.69. Mean-only detrend on the residual preserves the signal.</li>
+            <li><strong>Drift-aware acceptance gate.</strong> Before the classifier ever runs, a verification step requires &ge;&nbsp;100&nbsp;mV&nbsp;/&nbsp;unit-SOC drift slope, &ge;&nbsp;10&nbsp;mV smoothed-mean gap, and &ge;&nbsp;30&nbsp;pp internal-drain gap on representative files. Voltage leak &rArr; gate fails.</li>
+          </ul>
+
+          <div class="fv2-footer">
+            <div class="featured__stack">
+              <span>Python</span><span>NumPy</span><span>TensorFlow</span><span>SciPy</span><span>Wavelet</span><span>PINN</span><span>NCM811</span>
+            </div>
+            <a href="https://github.com/saurabhpandey2108/Battery_Fault_Detection" target="_blank" rel="noreferrer" class="btn btn--ghost">View Repository <span class="arrow">→</span></a>
+          </div>
         </div>
       </div>
     </article>
