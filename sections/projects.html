@@ -1,0 +1,253 @@
+  <!-- ============================================================
+       PROJECTS — 04
+       ============================================================ -->
+  <section id="projects" class="wrap">
+    <div class="sec-head reveal">
+      <span class="sec-head__num">04 — Selected Work</span>
+      <h2 class="sec-head__title">Things I've <em>built.</em></h2>
+      <span class="sec-head__rule"></span>
+    </div>
+
+    <!-- FEATURED -->
+    <article class="featured reveal">
+      <div class="featured__inner">
+
+        <!-- visual: equivalent circuit model -->
+        <div class="featured__visual">
+          <div class="ecm-vis">
+            <svg viewBox="0 0 460 360" xmlns="http://www.w3.org/2000/svg">
+              <defs>
+                <linearGradient id="grad" x1="0" y1="0" x2="1" y2="0">
+                  <stop offset="0%" stop-color="#4fd1c5" stop-opacity="0"/>
+                  <stop offset="50%" stop-color="#4fd1c5"/>
+                  <stop offset="100%" stop-color="#4fd1c5" stop-opacity="0"/>
+                </linearGradient>
+                <filter id="glow"><feGaussianBlur stdDeviation="2" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+              </defs>
+
+              <!-- circuit traces -->
+              <g stroke="#4fd1c5" stroke-width="1.4" fill="none" filter="url(#glow)">
+                <!-- main loop -->
+                <path d="M40,180 L100,180" />
+                <!-- battery symbol -->
+                <line x1="100" y1="160" x2="100" y2="200" stroke-width="3"/>
+                <line x1="108" y1="170" x2="108" y2="190" stroke-width="3"/>
+                <text x="92" y="218" fill="#4fd1c5">OCV</text>
+
+                <path d="M108,180 L150,180" />
+
+                <!-- R0 resistor -->
+                <path d="M150,180 l5,-8 l10,16 l10,-16 l10,16 l10,-16 l5,8" />
+                <text x="160" y="160" fill="#9a9aa6">R0</text>
+
+                <path d="M200,180 L240,180"/>
+
+                <!-- RC pair 1 -->
+                <path d="M240,180 L240,150 L300,150 L300,180" />
+                <path d="M240,180 L240,210 L300,210 L300,180" />
+                <!-- R1 -->
+                <path d="M254,150 l5,-8 l10,16 l10,-16 l10,16 l5,-8" />
+                <text x="262" y="138" fill="#9a9aa6">R1</text>
+                <!-- C1 -->
+                <line x1="266" y1="205" x2="266" y2="215" stroke-width="2.5"/>
+                <line x1="274" y1="205" x2="274" y2="215" stroke-width="2.5"/>
+                <text x="262" y="232" fill="#9a9aa6">C1</text>
+
+                <path d="M300,180 L340,180"/>
+
+                <!-- RC pair 2 -->
+                <path d="M340,180 L340,150 L400,150 L400,180" />
+                <path d="M340,180 L340,210 L400,210 L400,180" />
+                <path d="M354,150 l5,-8 l10,16 l10,-16 l10,16 l5,-8" />
+                <text x="362" y="138" fill="#9a9aa6">R2</text>
+                <line x1="366" y1="205" x2="366" y2="215" stroke-width="2.5"/>
+                <line x1="374" y1="205" x2="374" y2="215" stroke-width="2.5"/>
+                <text x="362" y="232" fill="#9a9aa6">C2</text>
+
+                <path d="M400,180 L420,180 L420,260 L40,260 L40,180"/>
+                <text x="408" y="172" fill="#fbbf24">+ V</text>
+
+                <!-- terminal nodes -->
+                <circle cx="40" cy="180" r="3" fill="#fbbf24"/>
+                <circle cx="420" cy="180" r="3" fill="#fbbf24"/>
+              </g>
+
+              <!-- annotations -->
+              <text x="20" y="40" fill="#9a9aa6" style="font-size:10px;letter-spacing:.15em">EQUIVALENT CIRCUIT MODEL</text>
+              <text x="20" y="58" fill="#4fd1c5" style="font-size:13px;font-weight:500">2-RC Thévenin Topology</text>
+
+              <!-- moving signal -->
+              <line x1="0" y1="320" x2="460" y2="320" stroke="url(#grad)" stroke-width="2">
+                <animate attributeName="x1" values="-460;460" dur="3s" repeatCount="indefinite"/>
+                <animate attributeName="x2" values="0;920" dur="3s" repeatCount="indefinite"/>
+              </line>
+              <text x="20" y="310" fill="#5a5a66" style="font-size:10px;letter-spacing:.15em">→ TIME-SERIES CURRENT INPUT</text>
+            </svg>
+          </div>
+        </div>
+
+        <!-- body -->
+        <div class="featured__body">
+          <div class="featured__pill">Featured · Patent-Filed</div>
+          <h3 class="featured__title">Battery Passport <em>&amp; on-device fault intelligence</em></h3>
+          <p class="featured__desc">
+            A patent-filed system that fuses <strong style="color:var(--text)">deep learning, swarm optimization and electrochemistry</strong> to estimate the state of an EV battery — its charge, health and degradation — directly on the BMS, in real time, without ever needing labeled data. Built at Suavy Technologies for use in battery swapping stations.
+          </p>
+
+          <div class="featured__params">
+            <div class="lbl">Estimated parameters · Equivalent Circuit Model</div>
+            <div class="params">
+              <span>R0</span><span>R1</span><span>R2</span><span>C1</span><span>C2</span><span>η</span><span>M0</span><span>M</span>
+            </div>
+          </div>
+
+          <ul class="featured__highlights">
+            <li><strong>Hybrid pipeline.</strong> ANN delivers fast initial parameter prediction; PSO refines them against measured terminal-voltage residuals — combining speed with precision.</li>
+            <li><strong>Physics-informed core.</strong> The model isn't a black box. It is anchored to a 2-RC Thévenin equivalent circuit, ensuring estimates remain physically plausible across temperature and aging.</li>
+            <li><strong>No labels needed.</strong> Self-supervised pipeline learns directly from voltage / current / temperature streams — solving the dataset bottleneck that blocks most BMS ML work.</li>
+            <li><strong>Lifecycle &amp; warranty.</strong> Outputs are cryptographically sealed in a tamper-resistant Battery Passport — enabling fleet-level safety, second-life tracking and warranty enforcement.</li>
+            <li><strong>Real-time fault signal.</strong> Drift in estimated parameters acts as an early-warning signal for cell degradation, internal short, and capacity fade.</li>
+          </ul>
+
+          <div class="featured__stack">
+            <span>Python</span><span>TensorFlow</span><span>NumPy</span><span>SciPy / PSO</span><span>MATLAB</span><span>ECM</span>
+          </div>
+
+          <a href="https://github.com/saurabhpandey2108" target="_blank" rel="noreferrer" class="btn btn--ghost">View Related Work <span class="arrow">→</span></a>
+        </div>
+      </div>
+    </article>
+
+    <!-- PROJECT GRID -->
+    <div class="proj-grid">
+
+      <article class="proj-card reveal">
+        <header class="proj-card__head">
+          <span class="proj-card__cat">Multimodal · LLM Agent</span>
+          <a href="https://github.com/saurabhpandey2108/Healthcare-Assistant" target="_blank" rel="noreferrer" class="proj-card__link" aria-label="GitHub">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17 17 7M7 7h10v10"/></svg>
+          </a>
+        </header>
+        <h3 class="proj-card__title">SAFESPACE — AI Health Assistant</h3>
+        <p class="proj-card__desc">
+          A LangGraph-driven agent powered by GPT-4o (with GROQ fallback) for multimodal therapeutic interactions — text, image and voice. Includes Whisper STT, GPT-4 Vision, ElevenLabs TTS, FAISS-RAG knowledge retrieval, and a Twilio-based emergency escalation pipeline with risk scoring.
+        </p>
+        <div class="proj-card__tags">
+          <span>FastAPI</span><span>LangGraph</span><span>GPT-4o</span><span>Whisper</span><span>FAISS</span><span>Twilio</span>
+        </div>
+      </article>
+
+      <article class="proj-card reveal delay-1">
+        <header class="proj-card__head">
+          <span class="proj-card__cat">LLM · RAG · Content</span>
+          <a href="https://github.com/saurabhpandey2108/Content-Generator" target="_blank" rel="noreferrer" class="proj-card__link" aria-label="GitHub">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17 17 7M7 7h10v10"/></svg>
+          </a>
+        </header>
+        <h3 class="proj-card__title">SEO Content Generator</h3>
+        <p class="proj-card__desc">
+          Streamlit + FastAPI app that ingests a brand's URL, brochure or social links and produces SEO-optimized captions, posts and full content calendars for Instagram, Facebook and LinkedIn. RAG-backed via FAISS, with feedback-driven regeneration.
+        </p>
+        <div class="proj-card__tags">
+          <span>OpenAI</span><span>FAISS</span><span>FastAPI</span><span>Streamlit</span><span>Render</span>
+        </div>
+      </article>
+
+      <article class="proj-card reveal delay-2">
+        <header class="proj-card__head">
+          <span class="proj-card__cat">Classical ML</span>
+          <a href="https://github.com/saurabhpandey2108/Holiday-Package-Prediction" target="_blank" rel="noreferrer" class="proj-card__link" aria-label="GitHub">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17 17 7M7 7h10v10"/></svg>
+          </a>
+        </header>
+        <h3 class="proj-card__title">Holiday Package Predictor</h3>
+        <p class="proj-card__desc">
+          End-to-end classification model for predicting holiday-package purchases, served through a Flask interface. Strong focus on EDA, feature engineering and customer-targeting logic — a data-driven alternative to scattershot marketing.
+        </p>
+        <div class="proj-card__tags">
+          <span>scikit-learn</span><span>Flask</span><span>EDA</span><span>Feature Eng.</span>
+        </div>
+      </article>
+
+      <article class="proj-card reveal delay-3">
+        <header class="proj-card__head">
+          <span class="proj-card__cat">Deep Learning · ANN</span>
+          <a href="https://github.com/saurabhpandey2108/ANN-Classification-Churn" target="_blank" rel="noreferrer" class="proj-card__link" aria-label="GitHub">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17 17 7M7 7h10v10"/></svg>
+          </a>
+        </header>
+        <h3 class="proj-card__title">ANN Customer-Churn Classifier</h3>
+        <p class="proj-card__desc">
+          A feed-forward neural network for predicting customer churn from a banking dataset. Implements the full pipeline — encoding, scaling, model design, evaluation — and surfaces the most impactful features driving attrition.
+        </p>
+        <div class="proj-card__tags">
+          <span>TensorFlow</span><span>Keras</span><span>Pandas</span><span>Jupyter</span>
+        </div>
+      </article>
+
+      <article class="proj-card reveal">
+        <header class="proj-card__head">
+          <span class="proj-card__cat">Data Analysis · Education</span>
+          <a href="https://github.com/saurabhpandey2108/Student-Performance" target="_blank" rel="noreferrer" class="proj-card__link" aria-label="GitHub">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17 17 7M7 7h10v10"/></svg>
+          </a>
+        </header>
+        <h3 class="proj-card__title">Student Performance Analytics</h3>
+        <p class="proj-card__desc">
+          Exploratory analysis and predictive modeling on student performance data, surfacing the demographic, study-habit and socio-economic features that most strongly correlate with academic outcomes.
+        </p>
+        <div class="proj-card__tags">
+          <span>Pandas</span><span>Seaborn</span><span>scikit-learn</span><span>EDA</span>
+        </div>
+      </article>
+
+      <article class="proj-card reveal delay-1">
+        <header class="proj-card__head">
+          <span class="proj-card__cat">ML · Security</span>
+          <a href="https://github.com/saurabhpandey2108/Network-Security" target="_blank" rel="noreferrer" class="proj-card__link" aria-label="GitHub">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17 17 7M7 7h10v10"/></svg>
+          </a>
+        </header>
+        <h3 class="proj-card__title">Network Security Classifier</h3>
+        <p class="proj-card__desc">
+          ML pipeline for classifying network traffic and identifying potentially malicious patterns — built as an end-to-end project with structured logging, model artifacts and modular Python packaging.
+        </p>
+        <div class="proj-card__tags">
+          <span>Python</span><span>scikit-learn</span><span>MLOps</span>
+        </div>
+      </article>
+
+      <article class="proj-card reveal delay-2">
+        <header class="proj-card__head">
+          <span class="proj-card__cat">Embedded · Hardware</span>
+          <a href="https://github.com/saurabhpandey2108" target="_blank" rel="noreferrer" class="proj-card__link" aria-label="GitHub">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17 17 7M7 7h10v10"/></svg>
+          </a>
+        </header>
+        <h3 class="proj-card__title">EBAJA Lifesize Electric ATV</h3>
+        <p class="proj-card__desc">
+          Designed and fabricated the full electrical architecture for a SAEINDIA E-Baja vehicle — 48V tractive + 12V auxiliary, custom PCBs, Atmega328P-driven safety logic, kill-switch, motor-controller integration, and Wi-Fi telemetry between sender / receiver units.
+        </p>
+        <div class="proj-card__tags">
+          <span>Atmega328P</span><span>Eagle</span><span>PCB</span><span>BMS</span><span>48V</span>
+        </div>
+      </article>
+
+      <article class="proj-card reveal delay-3">
+        <header class="proj-card__head">
+          <span class="proj-card__cat">All Repos</span>
+          <a href="https://github.com/saurabhpandey2108" target="_blank" rel="noreferrer" class="proj-card__link" aria-label="GitHub">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17 17 7M7 7h10v10"/></svg>
+          </a>
+        </header>
+        <h3 class="proj-card__title">26 + Repositories on GitHub</h3>
+        <p class="proj-card__desc">
+          The full archive — experiments, course work, hardware notes and AI tooling. From time-series analysis pieces to LLM tool-builds, everything I've shipped in public.
+        </p>
+        <div class="proj-card__tags">
+          <span>Python</span><span>Jupyter</span><span>OSS</span>
+        </div>
+      </article>
+
+    </div>
+  </section>
