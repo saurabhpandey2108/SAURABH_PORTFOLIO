@@ -134,7 +134,15 @@
 </footer>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-<script src="../js/include-loader.js"></script>
+<script>
+  // Detail page has no async-loaded sections — fire the event main.js waits on
+  // so the loader hides and reveal animations bind on initial paint.
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", () => window.dispatchEvent(new Event("sections-loaded")));
+  } else {
+    window.dispatchEvent(new Event("sections-loaded"));
+  }
+</script>
 <script src="../js/main.js"></script>
 </body>
 </html>
